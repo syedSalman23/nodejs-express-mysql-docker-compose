@@ -1,73 +1,153 @@
-# Node.js Rest APIs with Express & MySQL example
+# Node.js + MySQL Docker Compose Project
 
-For instruction, please visit:
-> [Build Node.js Rest APIs with Express & MySQL](https://www.bezkoder.com/node-js-rest-api-express-mysql/)
+## 📌 Project Overview
 
-Front-end that works well with this Back-end
-> [Axios Client](https://www.bezkoder.com/axios-request/)
+This project demonstrates how to containerize a Node.js Express application and a MySQL database using Docker and Docker Compose.
 
-> [Angular 8](https://www.bezkoder.com/angular-crud-app/) / [Angular 10](https://www.bezkoder.com/angular-10-crud-app/) / [Angular 11](https://www.bezkoder.com/angular-11-crud-app/) / [Angular 12](https://www.bezkoder.com/angular-12-crud-app/) / [Angular 13](https://www.bezkoder.com/angular-13-crud-example/) / [Angular 14](https://www.bezkoder.com/angular-14-crud-example/) / [Angular 15](https://www.bezkoder.com/angular-15-crud-example/) / [Angular 16 Client](https://www.bezkoder.com/angular-16-crud-example/) / [Angular 17 Client](https://www.bezkoder.com/angular-17-crud-example/)
+The application and database run in separate containers and communicate through Docker Compose networking. MySQL data is stored in a Docker volume to ensure persistence even if the containers are removed.
 
-> [Vue 2 Client](https://www.bezkoder.com/vue-js-crud-app/) / [Vue 3 Client](https://www.bezkoder.com/vue-3-crud/) / [Vuetify Client](https://www.bezkoder.com/vuetify-data-table-example/)
+---
 
-> [React Client](https://www.bezkoder.com/react-crud-web-api/) / [React Redux Client](https://www.bezkoder.com/react-redux-crud-example/)
+## 🛠 Technologies Used
 
-More Practice
-> [Build Node.js Rest APIs with Express, Sequelize & MySQL](https://www.bezkoder.com/node-js-express-sequelize-mysql/)
+* Node.js
+* Express.js
+* MySQL 8
+* Docker
+* Docker Compose
 
-> [Server side Pagination in Node.js with Sequelize and MySQL](https://www.bezkoder.com/node-js-sequelize-pagination-mysql/)
+---
 
-> [Node.js Express File Upload Rest API example](https://www.bezkoder.com/node-js-express-file-upload/)
+## 📁 Project Structure
 
-> [Node.js Express File Upload with Google Cloud Storage example](https://www.bezkoder.com/google-cloud-storage-nodejs-upload-file/)
-
-> [Node.js: Upload CSV file data into Database with Express](https://www.bezkoder.com/node-js-upload-csv-file-database/)
-
-> [Node.js: Upload Excel file data into Database with Express](https://www.bezkoder.com/node-js-upload-excel-file-database/)
-
-> [Deploying/Hosting Node.js app on Heroku with MySQL database](https://www.bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/)
-
-Security:
-> [Node.js Express: JWT example | Token Based Authentication & Authorization](https://www.bezkoder.com/node-js-jwt-authentication-mysql/)
-
-Associations:
-> [Sequelize Associations: One-to-Many Relationship example](https://www.bezkoder.com/sequelize-associate-one-to-many/)
-
-> [Sequelize Associations: Many-to-Many Relationship example](https://www.bezkoder.com/sequelize-associate-many-to-many/)
-
-Fullstack:
-> [Vue.js + Node.js + Express + MySQL example](https://www.bezkoder.com/vue-js-node-js-express-mysql-crud-example/)
-
-> [Vue.js + Node.js + Express + MongoDB example](https://www.bezkoder.com/vue-node-express-mongodb-mevn-crud/)
-
-> [Angular 8 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-node-express-mysql/)
-
-> [Angular 10 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-10-node-js-express-mysql/)
-
-> [Angular 11 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-11-node-js-express-mysql/)
-
-> [Angular 12 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-12-node-js-express-mysql/)
-
-> [Angular 13 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-13-node-js-express-mysql/)
-
-> [Angular 14 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-14-node-js-express-mysql/)
-
-> [Angular 15 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-15-node-js-express-mysql/)
-
-> [Angular 16 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-16-node-js-express-mysql/)
-
-> [Angular 17 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-17-node-js-express-mysql/)
-
-> [React + Node.js + Express + MySQL example](https://www.bezkoder.com/react-node-express-mysql/)
-
-> [React + Redux + Node.js Express + MySQL](https://www.bezkoder.com/react-redux-mysql-crud/)
-
-## Project setup
-```
-npm install
+```text
+.
+├── app/
+├── server.js
+├── package.json
+├── package-lock.json
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── .env
+└── README.md
 ```
 
-### Run
+---
+
+## 🏗 Architecture
+
+```text
+Browser
+    │
+localhost:8080
+    │
+    ▼
+Node.js (Express)
+    │
+Docker Network
+    │
+    ▼
+MySQL 8
+    │
+Docker Volume
 ```
-node server.js
+
+---
+
+## ⚙ Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+DB_HOST=mysql
+DB_USER=root
+DB_PASSWORD=123456
+DB_NAME=dbtest
+
+MYSQL_ROOT_PASSWORD=123456
+MYSQL_DATABASE=dbtest
 ```
+
+---
+
+## 🚀 Run the Project
+
+### Build and Start Containers
+
+```bash
+docker compose up --build
+```
+
+### Run in Background
+
+```bash
+docker compose up -d
+```
+
+### Stop Containers
+
+```bash
+docker compose down
+```
+
+---
+
+## 🌐 Access the Application
+
+```
+http://localhost:8080
+```
+
+> Note: If the project does not define a `/` route, a `404 Not Found` response is expected. Use the API endpoints implemented by the project.
+
+---
+
+## 💾 Persistent Storage
+
+A Docker named volume is used to persist MySQL data.
+
+```yaml
+volumes:
+  - db_data:/var/lib/mysql
+```
+
+This ensures database data remains available even after containers are recreated.
+
+---
+
+## 📚 Docker Concepts Practiced
+
+* Dockerfile
+* Single-stage build
+* Docker Compose
+* Docker Networking
+* Environment Variables
+* `.env`
+* `depends_on`
+* Named Volumes
+* Port Mapping
+* MySQL Container
+* Node.js Container Communication
+
+---
+
+## 📖 Learning Outcome
+
+Through this project, I learned how to:
+
+* Analyze a backend repository
+* Write a Dockerfile
+* Create a Docker Compose configuration
+* Connect a Node.js application to MySQL using Docker networking
+* Use environment variables for application configuration
+* Persist database data with Docker volumes
+* Debug Docker Compose configuration issues
+
+---
+
+## 👨‍💻 Author
+
+**Syed Salman N**
+
+Aspiring DevOps Engineer | AWS | Docker | Kubernetes | CI/CD
